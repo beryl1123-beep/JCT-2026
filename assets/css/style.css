@@ -814,7 +814,7 @@ body::after {
   right: 0;
   bottom: calc(-1px - var(--timeline-shift-y));
   height: 100%;
-  background-image: url("../images/SecondPage-background.PNG?v=20260919-10");
+  background-image: url("../images/SecondPage-background.png?v=20260919-10");
   background-repeat: no-repeat;
   background-position: left bottom;
   background-size: 100% 100%;

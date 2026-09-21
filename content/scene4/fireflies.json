@@ -1,0 +1,57 @@
+[
+  {
+    "id": "light-01",
+    "type": "text",
+    "title": "给认真走路的人",
+    "content": "愿你走过的每一步都算数，也愿每一次回头，都能看见沿途亮起的微光。",
+    "signature": "一颗路过的萤火",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-20T01:00:00+08:00"
+  },
+  {
+    "id": "light-02",
+    "type": "text",
+    "title": "廿载之后",
+    "content": "长路并不总有掌声，但热爱会把沉默的日子，一点一点照亮。生日快乐，愿新的故事仍有清风，也有星河。",
+    "signature": "与你一同看星河的人",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-20T02:00:00+08:00"
+  },
+  {
+    "id": "light-03",
+    "type": "website",
+    "title": "一封来自远方的网页信",
+    "content": "愿这束微光带你去往更辽阔的地方，也愿每一次打开，都能遇见一段新的风景。",
+    "signature": "来自远方的同行者",
+    "url": "https://www.example.com/",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-20T03:00:00+08:00"
+  },
+  {
+    "id": "light-04",
+    "type": "text",
+    "title": "在银河的另一边",
+    "content": "那些没有被大声说出的祝福，也会在黑夜里找到自己的位置。",
+    "signature": "无名的同行者",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-20T04:00:00+08:00"
+  },
+  {
+    "id": "light-05",
+    "type": "text",
+    "title": "仍然出发",
+    "content": "愿你的好奇不被岁月磨平，愿你永远有重新出发的勇气。",
+    "signature": "微光 05",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-20T05:00:00+08:00"
+  },
+  {
+    "id": "light-06",
+    "type": "text",
+    "title": "生日快乐",
+    "content": "愿下一程比想象更辽阔，比昨日更自由。",
+    "signature": "微光 06",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-20T06:00:00+08:00"
+  }
+]

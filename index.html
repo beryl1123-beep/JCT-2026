@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>廿载如初，王者归来 · 檀健次</title>
+  <link rel="stylesheet" href="./assets/css/style.css?v=20260921-7">
+</head>
+<body>
+  <div id="cur" aria-hidden="true"></div>
+  <div id="cur-t" aria-hidden="true"></div>
+
+  <main>
+  <section id="s1" class="scene scene-hero" aria-label="廿载如初，王者归来">
+    <div class="axis-line" aria-hidden="true"></div>
+
+    <div class="c c-tl" aria-hidden="true"></div>
+    <div class="c c-br" aria-hidden="true"></div>
+    <div class="seal" aria-hidden="true"><b>壽</b></div>
+
+    <!-- 人物主视觉：如需替换人物图，改下面这个 src -->
+    <div id="char-half" class="is-particle-pending" aria-hidden="true">
+      <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
+      <img id="char" src="./assets/images/home-character.PNG" alt="首页人物主视觉">
+    </div>
+
+    <div id="text-half">
+      <div id="text-row">
+        <!-- 左侧名字列 -->
+        <div id="col-name">
+          <div class="name-vert">檀健次</div>
+          <div class="name-bar" aria-hidden="true"></div>
+        </div>
+
+        <!-- 中间主标题图：改 src 可替换标题素材 -->
+        <div id="col-title">
+          <img class="t-img" src="./assets/images/home-title.PNG" alt="廿载如初·王者归来">
+        </div>
+
+        <!-- 右侧诗句列 -->
+        <div class="sep" aria-hidden="true"></div>
+
+        <div id="col-poem">
+          <div class="poem-topbar" aria-hidden="true"></div>
+          <div class="poem-text">高山仰止，景行行止。</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hint" aria-hidden="true">
+      <span class="hint-label">向上滑动</span>
+      <span class="scroll-mark" aria-hidden="true"><i></i></span>
+    </div>
+  </section>
+
+  <section id="s2" class="scene scene-timeline" aria-labelledby="timeline-title">
+    <div class="timeline-head">
+      <p class="timeline-kicker">2006 - 2026</p>
+      <h1 id="timeline-title">廿载长卷</h1>
+      <p>循着山脊的微光，翻阅一路走来的作品与舞台</p>
+    </div>
+
+    <div class="timeline-help" aria-hidden="true">
+      <span>横向漫游</span>
+      <i></i>
+    </div>
+
+    <div id="timeline-viewport" class="timeline-viewport" tabindex="0" aria-label="檀健次2006至2026演艺时间线，可横向滚动">
+      <div id="timeline-track" class="timeline-track">
+        <div class="mountain-layer" aria-hidden="true"></div>
+        <div id="fireflies" class="fireflies" aria-hidden="true"></div>
+        <div id="year-nodes" class="year-nodes"></div>
+        <p class="timeline-signature" aria-hidden="true">山高水长 · 步履不停</p>
+      </div>
+    </div>
+
+    <div class="timeline-progress" aria-hidden="true">
+      <span id="timeline-progress-bar"></span>
+    </div>
+  </section>
+
+  <section id="s3" class="scene scene-lotus" aria-labelledby="lotus-title">
+    <header class="lotus-copy">
+      <p class="lotus-kicker">花影拾光 · 蝶落人间</p>
+      <h2 id="lotus-title">一念花开</h2>
+      <p id="lotus-instruction">轻触花朵，收集微光</p>
+    </header>
+
+    <div id="lotus-stage" class="lotus-stage">
+      <div class="lotus-artwork" aria-hidden="true">
+        <img class="lotus-art lotus-leaf lotus-leaf-left" src="./assets/images/leaf-left-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-leaf lotus-leaf-center" src="./assets/images/leaf-center-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-leaf lotus-leaf-right" src="./assets/images/leaf-right-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+
+        <img class="lotus-art lotus-flower lotus-flower-1" data-flower="1" src="./assets/images/flower1-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-flower lotus-flower-2" data-flower="2" src="./assets/images/flower2-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-flower lotus-flower-3" data-flower="3" src="./assets/images/flower3-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-flower lotus-flower-4" data-flower="4" src="./assets/images/flower4-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-flower lotus-flower-5" data-flower="5" src="./assets/images/flower5-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="lotus-art lotus-flower lotus-flower-6" data-flower="6" src="./assets/images/flower6-trim.png?v=20260919-2" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <div class="lotus-hotspots" aria-label="点亮六朵莲花">
+        <button class="lotus-hotspot lotus-hotspot-1" type="button" data-flower="1" aria-label="点亮第一朵莲花" aria-pressed="false"><span>壹</span></button>
+        <button class="lotus-hotspot lotus-hotspot-2" type="button" data-flower="2" aria-label="点亮第二朵莲花" aria-pressed="false"><span>贰</span></button>
+        <button class="lotus-hotspot lotus-hotspot-3" type="button" data-flower="3" aria-label="点亮第三朵莲花" aria-pressed="false"><span>叁</span></button>
+        <button class="lotus-hotspot lotus-hotspot-4" type="button" data-flower="4" aria-label="点亮第四朵莲花" aria-pressed="false"><span>肆</span></button>
+        <button class="lotus-hotspot lotus-hotspot-5" type="button" data-flower="5" aria-label="点亮第五朵莲花" aria-pressed="false"><span>伍</span></button>
+        <button class="lotus-hotspot lotus-hotspot-6" type="button" data-flower="6" aria-label="点亮第六朵莲花" aria-pressed="false"><span>陆</span></button>
+      </div>
+
+      <div id="ink-butterfly" class="ink-butterfly is-flying" aria-hidden="true">
+        <span class="butterfly-aura" aria-hidden="true"></span>
+        <img class="butterfly-side" src="./assets/images/butterfly-side.gif?v=20260919-2" alt="" loading="lazy" decoding="async">
+        <img class="butterfly-open" src="./assets/images/butterfly-open.PNG?v=20260920-1" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <div id="lotus-lights" class="lotus-lights" aria-label="六个蝶影光点">
+        <img class="butterfly-light-map" src="./assets/images/butterflylight.PNG?v=20260920-1" alt="" loading="lazy" decoding="async" aria-hidden="true">
+        <button type="button" data-light="1" aria-label="打开第一个光点卷页"><span>壹</span></button>
+        <button type="button" data-light="2" aria-label="打开第二个光点卷页"><span>贰</span></button>
+        <button type="button" data-light="3" aria-label="打开第三个光点卷页"><span>叁</span></button>
+        <button type="button" data-light="6" aria-label="打开第六个光点卷页"><span>陆</span></button>
+        <button type="button" data-light="5" aria-label="打开第五个光点卷页"><span>伍</span></button>
+        <button type="button" data-light="4" aria-label="打开第四个光点卷页"><span>肆</span></button>
+      </div>
+    </div>
+
+    <div id="lotus-dim" class="lotus-dim" aria-hidden="true"></div>
+
+    <aside id="lotus-scroll" class="lotus-scroll" aria-labelledby="lotus-scroll-title" aria-hidden="true">
+      <div class="lotus-scroll-shell">
+        <header class="lotus-scroll-header">
+          <div>
+            <p>蝶影卷页</p>
+            <h3 id="lotus-scroll-title">光点·壹</h3>
+          </div>
+          <button id="lotus-scroll-close" class="lotus-scroll-close" type="button">收卷</button>
+        </header>
+        <div id="lotus-scroll-content" class="lotus-scroll-content"></div>
+        <footer class="lotus-scroll-footer">
+          <span>轻触其他光点切换卷页</span>
+          <i aria-hidden="true"></i>
+        </footer>
+      </div>
+    </aside>
+
+    <footer class="lotus-footer">
+      <div class="lotus-progress" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <p id="lotus-count" aria-live="polite">已点亮 0 / 6</p>
+      <button id="lotus-reset" class="lotus-reset" type="button" disabled>重聚</button>
+    </footer>
+
+    <p id="lotus-finale" class="lotus-finale" aria-live="polite">花开有声，愿此程常有清风与星光。</p>
+
+    <div id="nightfall-transition" class="nightfall-transition" aria-hidden="true">
+      <div class="nightfall-motes">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4" class="scene scene-galaxy" aria-labelledby="galaxy-title">
+    <div id="galaxy-stage" class="galaxy-stage">
+      <canvas id="galaxy-canvas" aria-hidden="true"></canvas>
+
+      <div class="galaxy-explore-layer">
+        <header class="galaxy-heading">
+          <p>微光汇聚，你我相遇</p>
+          <h2 id="galaxy-title">荧火星河</h2>
+          <span class="galaxy-desktop-instruction">点击荧火，查看微光 · 按住星河，上下左右拖拽</span>
+          <span class="galaxy-mobile-instruction">轻触微光查看 · 拖动摇杆探索 · 上下滑动翻页</span>
+        </header>
+
+        <p id="galaxy-light-hint" class="galaxy-light-hint" aria-live="polite">靠近一束微光，轻触展开</p>
+
+        <div class="galaxy-joystick" aria-label="手机端星河方向控制">
+          <span>拖动星河</span>
+          <button id="galaxy-joystick-control" type="button" aria-label="按住并向任意方向拖动，旋转萤火星河">
+            <i aria-hidden="true"></i>
+            <b id="galaxy-joystick-knob" aria-hidden="true"></b>
+          </button>
+        </div>
+
+        <button id="firefly-submit" class="firefly-submit" type="button" aria-label="投递荧火，点亮星河">
+          <img src="./assets/images/fire-character.gif?v=20260920-1" alt="投递荧火" loading="lazy" decoding="async">
+          <span>投递荧火，点亮星河</span>
+        </button>
+
+        <button id="galaxy-down" class="galaxy-down" type="button" aria-label="向下进入结束画面">
+          <span>继续向下</span>
+          <i aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="galaxy-ending-layer" aria-hidden="true">
+        <figure class="companion-art">
+          <img src="./assets/images/companion-hedgehog.png?v=20260921-1" alt="刺猬与炭火相依的金色线稿" loading="lazy" decoding="async">
+        </figure>
+        <p class="galaxy-warm-line">微光会记得，每一次真心的陪伴。</p>
+        <nav class="galaxy-ending-actions" aria-label="第四幕结束导航">
+          <button id="galaxy-home" type="button">重温来时路</button>
+          <button id="galaxy-return" type="button">探索萤火星河</button>
+        </nav>
+        <footer class="galaxy-credit">
+          <span>Copyright © 2026 阿林Art. All rights reserved.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;策划与执行：阿林Art</span>
+        </footer>
+      </div>
+    </div>
+    <div id="galaxy-ending-trigger" class="galaxy-ending-trigger" aria-hidden="true"></div>
+  </section>
+  </main>
+
+  <dialog id="story-dialog" class="story-dialog" aria-labelledby="story-title">
+    <div id="dialog-cur" aria-hidden="true"></div>
+    <div id="dialog-cur-t" aria-hidden="true"></div>
+    <div class="story-shell">
+      <header class="story-header">
+        <div>
+          <p>时间卷页</p>
+          <h2 id="story-title">2006</h2>
+        </div>
+        <button id="story-close" class="story-close" type="button" aria-label="关闭卷页">收卷</button>
+      </header>
+      <div id="story-content" class="story-content" aria-live="polite"></div>
+      <footer class="story-footer">
+        <span>左右滑动阅览</span>
+        <div class="story-rule" aria-hidden="true"></div>
+      </footer>
+    </div>
+  </dialog>
+
+  <dialog id="firefly-dialog" class="firefly-dialog" aria-labelledby="firefly-dialog-title">
+    <article class="firefly-letter">
+      <header class="firefly-letter-header">
+        <div>
+          <p id="firefly-dialog-kicker">星河来信</p>
+          <h2 id="firefly-dialog-title">一束微光</h2>
+        </div>
+        <div class="firefly-letter-actions">
+          <nav id="firefly-dialog-nav" class="firefly-dialog-nav" aria-label="切换星河来信" hidden>
+            <button id="firefly-dialog-prev" type="button">← 上一张</button>
+            <button id="firefly-dialog-next" type="button">下一张 →</button>
+          </nav>
+          <button id="firefly-dialog-close" type="button" aria-label="关闭信笺">合上</button>
+        </div>
+      </header>
+      <div id="firefly-dialog-content" class="firefly-dialog-content"></div>
+    </article>
+  </dialog>
+
+  <div id="galaxy-toast" class="galaxy-toast" role="status" aria-live="polite">点亮成功</div>
+
+  <script src="./content/scene2-layer2/timeline-content.js?v=20260921-2"></script>
+  <script src="./assets/vendor/three.min.js?v=0.159.0"></script>
+  <script src="./assets/data/hero-particle-data.js?v=20260921-3"></script>
+  <script src="./assets/js/hero-particles.js?v=20260921-8"></script>
+  <script src="./assets/js/main.js?v=20260921-9"></script>
+</body>
+</html>

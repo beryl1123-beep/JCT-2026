@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>廿载如初，王者归来 · 檀健次</title>
-  <link rel="stylesheet" href="./assets/css/style.css?v=20260922-3">
+  <link rel="stylesheet" href="./assets/css/style.css?v=20260923-4">
 </head>
 <body>
   <div id="cur" aria-hidden="true"></div>
@@ -16,12 +16,13 @@
 
     <div class="c c-tl" aria-hidden="true"></div>
     <div class="c c-br" aria-hidden="true"></div>
-    <div class="seal" aria-hidden="true"><b>壽</b></div>
+    <div class="seal" aria-hidden="true"><b>賀</b></div>
 
     <!-- 人物主视觉：如需替换人物图，改下面这个 src -->
     <div id="char-half" class="is-particle-pending" aria-hidden="true">
       <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
       <img id="char" src="./assets/images/home-character.PNG" alt="首页人物主视觉">
+      <button id="hero-particle-reveal" class="hero-particle-reveal" type="button" aria-label="散开粒子，显现人物原图"></button>
     </div>
 
     <div id="text-half">
@@ -55,7 +56,7 @@
 
   <section id="s2" class="scene scene-timeline" aria-labelledby="timeline-title">
     <div class="timeline-head">
-      <p class="timeline-kicker">2006 - 2026</p>
+      <p class="timeline-kicker">2006-2026</p>
       <h1 id="timeline-title">廿载长卷</h1>
       <p>循着山脊的微光，翻阅一路走来的作品与舞台</p>
     </div>
@@ -67,9 +68,9 @@
 
     <div id="timeline-viewport" class="timeline-viewport" tabindex="0" aria-label="檀健次2006至2026演艺时间线，可横向滚动">
       <div id="timeline-track" class="timeline-track">
-        <div class="timeline-cloud-layer timeline-cloud-left" data-parallax="0.12" aria-hidden="true"></div>
-        <div class="timeline-cloud-layer timeline-cloud-center" data-parallax="0.06" aria-hidden="true"></div>
-        <div class="timeline-cloud-layer timeline-cloud-right" data-parallax="-0.02" aria-hidden="true"></div>
+        <div class="timeline-cloud-layer timeline-cloud-left" data-parallax="0.42" aria-hidden="true"></div>
+        <div class="timeline-cloud-layer timeline-cloud-center" data-parallax="0.22" aria-hidden="true"></div>
+        <div class="timeline-cloud-layer timeline-cloud-right" data-parallax="-0.12" aria-hidden="true"></div>
         <div class="mountain-layer" aria-hidden="true"></div>
         <div id="fireflies" class="fireflies" aria-hidden="true"></div>
         <div id="year-nodes" class="year-nodes"></div>
@@ -173,7 +174,7 @@
         <header class="galaxy-heading">
           <p>微光汇聚，你我相遇</p>
           <h2 id="galaxy-title">荧火星河</h2>
-          <span class="galaxy-desktop-instruction">点击荧火，查看微光 · 按住星河，上下左右拖拽</span>
+          <span class="galaxy-desktop-instruction">点击查看荧火 · 按住星河，上下左右拖拽</span>
           <span class="galaxy-mobile-instruction">轻触微光查看 · 拖动摇杆探索 · 上下滑动翻页</span>
         </header>
 
@@ -204,10 +205,10 @@
           <img class="companion-glow" src="./assets/images/companion-glow.png?v=20260922-2" alt="" loading="lazy" decoding="async" aria-hidden="true">
           <canvas id="companion-sparks" class="companion-sparks" aria-hidden="true"></canvas>
         </figure>
-        <p class="galaxy-warm-line">微光会记得，每一次真心的陪伴。</p>
+        <p class="galaxy-warm-line">炭火会记得，每一次真心的陪伴；</p>
         <nav class="galaxy-ending-actions" aria-label="第四幕结束导航">
           <button id="galaxy-home" type="button">重温来时路</button>
-          <button id="galaxy-return" type="button">探索萤火星河</button>
+          <button id="galaxy-return" type="button">探索荧火星河</button>
         </nav>
         <footer class="galaxy-credit">
           <span>Copyright © 2026 阿林Art. All rights reserved.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;策划与执行：阿林Art</span>
@@ -261,8 +262,8 @@
   <script src="./content/scene2-layer2/timeline-content.js?v=20260921-2"></script>
   <script src="./assets/vendor/three.min.js?v=0.159.0"></script>
   <script src="./assets/data/hero-particle-data.js?v=20260921-3"></script>
-  <script src="./assets/js/hero-particles.js?v=20260921-8"></script>
-  <script src="./assets/js/main.js?v=20260922-2"></script>
+  <script src="./assets/js/hero-particles.js?v=20260922-5"></script>
+  <script src="./assets/js/main.js?v=20260922-3"></script>
   <script src="./assets/data/companion-spark-data.js?v=20260922-2"></script>
   <script src="./assets/js/companion-sparks.js?v=20260922-3"></script>
 </body>

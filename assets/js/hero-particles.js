@@ -4,9 +4,10 @@
   const container = document.getElementById("char-half");
   const canvas = document.getElementById("hero-particles");
   const portrait = document.getElementById("char");
+  const revealTrigger = document.getElementById("hero-particle-reveal");
   const sceneElement = document.getElementById("s1");
 
-  if (!container || !canvas || !portrait || !sceneElement) {
+  if (!container || !canvas || !portrait || !revealTrigger || !sceneElement) {
     return;
   }
 
@@ -41,7 +42,10 @@
   }
 
   const mobileQuery = window.matchMedia("(max-width: 760px), (pointer: coarse)");
+  const phoneQuery = window.matchMedia("(max-width: 760px)");
   const compactQuery = window.matchMedia("(max-width: 960px)");
+  const pointerRevealQuery = window.matchMedia("(min-width: 761px) and (hover: hover) and (pointer: fine)");
+  const pointerInteractionMode = "water";
   const THREE = window.THREE;
   let renderer = null;
   let camera = null;
@@ -64,6 +68,19 @@
   let totalFlowParticles = 0;
   let currentPixelRatio = 1;
   let scrollFrame = 0;
+  let revealFrame = 0;
+  let revealStartTime = 0;
+  let revealProgress = 0;
+  let revealHoverStrength = 0;
+  let hoverStrength = 0;
+  let targetHoverStrength = 0;
+  let lastPointerSample = null;
+  const pointerTarget = new THREE.Vector2(0, 0);
+  const pointerHead = new THREE.Vector2(0, 0);
+  const pointerTrail = new THREE.Vector2(0, 0);
+  const pointerTail = new THREE.Vector2(0, 0);
+  const windDirection = new THREE.Vector2(0.94, 0.34).normalize();
+  const targetWindDirection = windDirection.clone();
 
   const flowZones = [
     { x: -0.38, y: -0.08, radiusX: 0.105, radiusY: 0.115 },
@@ -81,6 +98,15 @@
 
     uniform float uProgress;
     uniform float uDissolve;
+    uniform vec2 uPointer;
+    uniform vec2 uPointerTrail;
+    uniform vec2 uPointerTail;
+    uniform vec2 uWindDirection;
+    uniform float uInteractionAspect;
+    uniform float uInteractionMode;
+    uniform float uRevealHoverStrength;
+    uniform float uHoverTime;
+    uniform float uHoverStrength;
     uniform float uTime;
     uniform float uPixelRatio;
 
@@ -111,6 +137,43 @@
       float dissolve = smoothstep(dissolveStart, min(1.0, dissolveStart + 0.34), uDissolve);
       transformed.x += sin(aPhase * 41.7) * dissolve * (0.018 + aPhase * 0.085);
       transformed.y -= dissolve * (0.075 + fract(aPhase * 11.73) * 0.31);
+
+      vec2 wind = normalize(uWindDirection);
+      vec2 crossWind = vec2(-wind.y, wind.x);
+      vec2 headDelta = aTarget.xy - uPointer;
+      vec2 trailDelta = aTarget.xy - uPointerTrail;
+      vec2 tailDelta = aTarget.xy - uPointerTail;
+      float legacyHeadDistance = length(vec2(dot(headDelta, wind) * 0.64, dot(headDelta, crossWind) * 1.48));
+      float legacyTrailDistance = length(vec2(dot(trailDelta, wind) * 0.72, dot(trailDelta, crossWind) * 1.38));
+      float legacyTailDistance = length(vec2(dot(tailDelta, wind) * 0.82, dot(tailDelta, crossWind) * 1.3));
+      float legacyHeadGust = 1.0 - smoothstep(0.035, 0.18, legacyHeadDistance);
+      float legacyTrailGust = (1.0 - smoothstep(0.035, 0.165, legacyTrailDistance)) * 0.72;
+      float legacyTailGust = (1.0 - smoothstep(0.03, 0.15, legacyTailDistance)) * 0.46;
+      float legacyHoverScatter = max(legacyHeadGust, max(legacyTrailGust, legacyTailGust));
+      float hoverGrain = 0.34 + fract(aPhase * 17.37) * 0.96;
+      float gustPulse = 0.84 + sin(uHoverTime * 0.006 + aPhase * 19.0) * 0.16;
+      float legacyWindTravel = legacyHoverScatter * gustPulse * (0.11 + hoverGrain * 0.23);
+      float legacyTurbulence = sin(uHoverTime * 0.009 + aPhase * 31.0) * legacyHoverScatter * (0.012 + hoverGrain * 0.026);
+      vec2 legacyWindDisplacement = wind * legacyWindTravel + crossWind * legacyTurbulence;
+
+      vec2 circularDelta = vec2(headDelta.x, headDelta.y * uInteractionAspect);
+      float waterDistance = length(circularDelta);
+      float waterScatter = 1.0 - smoothstep(0.035, 0.155, waterDistance);
+      vec2 radialDirection = waterDistance > 0.001
+        ? normalize(vec2(circularDelta.x, circularDelta.y / max(0.001, uInteractionAspect)))
+        : vec2(sin(aPhase * 31.0), cos(aPhase * 29.0));
+      vec2 swirlDirection = vec2(-radialDirection.y, radialDirection.x);
+      float ripple = 0.78 + sin(uHoverTime * 0.012 - waterDistance * 58.0 + aPhase * 17.0) * 0.22;
+      float waterTravel = waterScatter * ripple * (0.065 + hoverGrain * 0.14);
+      float waterSwirl = sin(uHoverTime * 0.01 + aPhase * 37.0) * waterScatter * (0.018 + hoverGrain * 0.035);
+      vec2 waterDisplacement = radialDirection * waterTravel
+        + swirlDirection * waterSwirl
+        + wind * waterScatter * (0.018 + hoverGrain * 0.04);
+
+      float interactionMode = step(0.5, uInteractionMode);
+      vec2 hoverDisplacement = mix(legacyWindDisplacement, waterDisplacement, interactionMode);
+      float activeHoverStrength = max(uHoverStrength * (1.0 - uDissolve), uRevealHoverStrength);
+      transformed.xy += hoverDisplacement * activeHoverStrength;
 
       vInkColor = aInkColor;
       float flowFade = 1.0 - smoothstep(0.48, 1.0, flowCycle);
@@ -261,8 +324,12 @@
 
     const containerRect = container.getBoundingClientRect();
     const portraitRect = portrait.getBoundingClientRect();
-    const width = Math.max(1, Math.round(containerRect.width));
-    const height = Math.max(1, Math.round(containerRect.height));
+    const containerWidth = Math.max(1, Math.round(containerRect.width));
+    const containerHeight = Math.max(1, Math.round(containerRect.height));
+    const overflowX = pointerRevealQuery.matches ? Math.min(220, Math.round(containerWidth * 0.28)) : 0;
+    const overflowY = pointerRevealQuery.matches ? Math.min(90, Math.round(containerHeight * 0.1)) : 0;
+    const width = containerWidth + overflowX * 2;
+    const height = containerHeight + overflowY * 2;
     const sourceAspect = portrait.naturalWidth / portrait.naturalHeight;
     const contentWidth = Math.min(portraitRect.width, portraitRect.height * sourceAspect);
     const contentHeight = contentWidth / sourceAspect;
@@ -271,6 +338,10 @@
 
     renderer.setPixelRatio(currentPixelRatio);
     renderer.setSize(width, height, false);
+    canvas.style.left = `${-overflowX}px`;
+    canvas.style.top = `${-overflowY}px`;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
 
     camera.left = -width / 2;
     camera.right = width / 2;
@@ -279,9 +350,10 @@
     camera.updateProjectionMatrix();
 
     particles.scale.set(Math.max(1, contentWidth), Math.max(1, contentHeight), 1);
+    material.uniforms.uInteractionAspect.value = contentHeight / Math.max(1, contentWidth);
     particles.position.set(
-      contentLeft - containerRect.left + contentWidth / 2 - width / 2,
-      height / 2 - (contentTop - containerRect.top + contentHeight / 2),
+      contentLeft - containerRect.left + overflowX + contentWidth / 2 - width / 2,
+      height / 2 - overflowY - (contentTop - containerRect.top + contentHeight / 2),
       0,
     );
   }
@@ -295,9 +367,21 @@
     lastTimestamp = 0;
   }
 
+  function applyRevealProgress(progress) {
+    if (!material || isDisposed) {
+      return;
+    }
+
+    const safeProgress = Math.min(1, Math.max(0, progress));
+    material.uniforms.uDissolve.value = safeProgress;
+    container.style.setProperty("--hero-image-reveal", safeProgress.toFixed(4));
+    container.dataset.particleDissolve = safeProgress.toFixed(3);
+  }
+
   function updateScrollProgress() {
     scrollFrame = 0;
-    if (!material || isDisposed) {
+    if (!phoneQuery.matches) {
+      applyRevealProgress(revealProgress);
       return;
     }
 
@@ -306,15 +390,146 @@
     const rawProgress = Math.min(1, Math.max(0, (window.scrollY - sceneTop) / (sceneHeight * 0.82)));
     const easedProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
 
-    material.uniforms.uDissolve.value = easedProgress;
-    container.style.setProperty("--hero-image-reveal", easedProgress.toFixed(4));
-    container.dataset.particleDissolve = easedProgress.toFixed(3);
+    applyRevealProgress(easedProgress);
   }
 
   function requestScrollUpdate() {
     if (!scrollFrame) {
       scrollFrame = window.requestAnimationFrame(updateScrollProgress);
     }
+  }
+
+  function resetPointerReveal(immediate = false) {
+    targetHoverStrength = 0;
+    lastPointerSample = null;
+    if (!immediate) {
+      return;
+    }
+
+    hoverStrength = 0;
+    revealHoverStrength = 0;
+    container.style.setProperty("--hero-hover-strength", "0");
+    if (material) {
+      material.uniforms.uHoverStrength.value = 0;
+      material.uniforms.uRevealHoverStrength.value = 0;
+    }
+    container.classList.remove("is-pointer-active");
+  }
+
+  function updatePointerReveal(event) {
+    if (!pointerRevealQuery.matches || revealFrame || revealProgress > 0) {
+      resetPointerReveal();
+      return;
+    }
+
+    const portraitRect = portrait.getBoundingClientRect();
+    const pointerX = (event.clientX - portraitRect.left) / Math.max(1, portraitRect.width);
+    const pointerY = (event.clientY - portraitRect.top) / Math.max(1, portraitRect.height);
+    const insidePortrait = pointerX >= 0 && pointerX <= 1 && pointerY >= 0 && pointerY <= 1;
+
+    if (!insidePortrait) {
+      resetPointerReveal();
+      return;
+    }
+
+    const nextPointerX = pointerX - 0.5;
+    const nextPointerY = 0.5 - pointerY;
+    const now = event.timeStamp || performance.now();
+
+    if (!lastPointerSample || targetHoverStrength === 0) {
+      pointerTarget.set(nextPointerX, nextPointerY);
+      pointerHead.copy(pointerTarget);
+      pointerTrail.copy(pointerTarget);
+      pointerTail.copy(pointerTarget);
+    } else {
+      const deltaX = nextPointerX - lastPointerSample.x;
+      const deltaY = nextPointerY - lastPointerSample.y;
+      const distance = Math.hypot(deltaX, deltaY);
+      const elapsed = Math.max(8, now - lastPointerSample.time);
+      if (distance > 0.002 && elapsed < 180) {
+        targetWindDirection.set(deltaX, deltaY).normalize();
+      }
+      pointerTarget.set(nextPointerX, nextPointerY);
+    }
+
+    lastPointerSample = { x: nextPointerX, y: nextPointerY, time: now };
+    container.style.setProperty("--hero-hover-x", `${(pointerX * 100).toFixed(2)}%`);
+    container.style.setProperty("--hero-hover-y", `${(pointerY * 100).toFixed(2)}%`);
+    container.style.setProperty("--hero-wake-x", `${Math.min(100, Math.max(0, pointerX * 100 - targetWindDirection.x * 9)).toFixed(2)}%`);
+    container.style.setProperty("--hero-wake-y", `${Math.min(100, Math.max(0, pointerY * 100 + targetWindDirection.y * 9)).toFixed(2)}%`);
+    container.style.setProperty("--hero-wake-tail-x", `${Math.min(100, Math.max(0, pointerX * 100 - targetWindDirection.x * 17)).toFixed(2)}%`);
+    container.style.setProperty("--hero-wake-tail-y", `${Math.min(100, Math.max(0, pointerY * 100 + targetWindDirection.y * 17)).toFixed(2)}%`);
+    targetHoverStrength = 1;
+    container.classList.add("is-pointer-active");
+  }
+
+  function syncPointerRevealMode() {
+    if (!pointerRevealQuery.matches) {
+      resetPointerReveal(true);
+    }
+  }
+
+  function leavePointerReveal() {
+    resetPointerReveal();
+  }
+
+  function updateClickReveal(timestamp) {
+    revealFrame = 0;
+    if (!revealStartTime) {
+      revealStartTime = timestamp;
+    }
+
+    const elapsed = Math.min(1, (timestamp - revealStartTime) / 1700);
+    revealProgress = elapsed * elapsed * (3 - 2 * elapsed);
+    applyRevealProgress(revealProgress);
+
+    if (elapsed < 1) {
+      revealFrame = window.requestAnimationFrame(updateClickReveal);
+      return;
+    }
+
+    revealProgress = 1;
+    container.classList.remove("is-revealing");
+    container.classList.add("is-revealed");
+    revealTrigger.disabled = true;
+  }
+
+  function revealPortrait() {
+    if (phoneQuery.matches || revealFrame || revealProgress >= 1) {
+      return;
+    }
+
+    revealStartTime = 0;
+    revealHoverStrength = hoverStrength;
+    material.uniforms.uRevealHoverStrength.value = revealHoverStrength;
+    container.dataset.particleRevealHover = revealHoverStrength.toFixed(3);
+    targetHoverStrength = 0;
+    lastPointerSample = null;
+    container.classList.remove("is-pointer-active");
+    container.classList.add("is-revealing");
+    revealFrame = window.requestAnimationFrame(updateClickReveal);
+  }
+
+  function syncRevealMode() {
+    if (revealFrame) {
+      window.cancelAnimationFrame(revealFrame);
+      revealFrame = 0;
+    }
+
+    resetPointerReveal(true);
+    revealStartTime = 0;
+    revealProgress = 0;
+    container.classList.remove("has-click-reveal", "is-revealing", "is-revealed");
+    container.setAttribute("aria-hidden", phoneQuery.matches ? "true" : "false");
+    revealTrigger.disabled = false;
+
+    if (phoneQuery.matches) {
+      updateScrollProgress();
+      return;
+    }
+
+    container.classList.add("has-click-reveal");
+    applyRevealProgress(0);
   }
 
   function disposeToStatic(reason, detail = "") {
@@ -329,7 +544,16 @@
       window.cancelAnimationFrame(scrollFrame);
       scrollFrame = 0;
     }
+    if (revealFrame) {
+      window.cancelAnimationFrame(revealFrame);
+      revealFrame = 0;
+    }
     window.removeEventListener("scroll", requestScrollUpdate);
+    revealTrigger.removeEventListener("click", revealPortrait);
+    revealTrigger.removeEventListener("pointermove", updatePointerReveal);
+    revealTrigger.removeEventListener("pointerleave", leavePointerReveal);
+    phoneQuery.removeEventListener("change", syncRevealMode);
+    pointerRevealQuery.removeEventListener("change", syncPointerRevealMode);
     geometry?.dispose();
     material?.dispose();
     renderer?.dispose();
@@ -383,9 +607,33 @@
     lastTimestamp = timestamp;
     activeTime += frameTime;
     const progress = Math.min(1, Math.max(0, (activeTime - 120) / 1850));
+    const hoverEase = 1 - Math.exp(-frameTime / (targetHoverStrength > 0 ? 70 : 230));
+    hoverStrength += (targetHoverStrength - hoverStrength) * hoverEase;
+    const headEase = 1 - Math.exp(-frameTime / 34);
+    const trailEase = 1 - Math.exp(-frameTime / 105);
+    const tailEase = 1 - Math.exp(-frameTime / 190);
+    const windEase = 1 - Math.exp(-frameTime / 130);
+    pointerHead.lerp(pointerTarget, headEase);
+    pointerTrail.lerp(pointerHead, trailEase);
+    pointerTail.lerp(pointerTrail, tailEase);
+    windDirection.lerp(targetWindDirection, windEase).normalize();
+
+    if (targetHoverStrength === 0 && hoverStrength < 0.012) {
+      hoverStrength = 0;
+      container.classList.remove("is-pointer-active");
+    }
 
     material.uniforms.uProgress.value = progress;
+    material.uniforms.uPointer.value.copy(pointerHead);
+    material.uniforms.uPointerTrail.value.copy(pointerTrail);
+    material.uniforms.uPointerTail.value.copy(pointerTail);
+    material.uniforms.uWindDirection.value.copy(windDirection);
+    material.uniforms.uHoverStrength.value = hoverStrength;
     material.uniforms.uTime.value = activeTime;
+    if (!revealFrame && revealProgress <= 0) {
+      material.uniforms.uHoverTime.value = activeTime;
+    }
+    container.style.setProperty("--hero-hover-strength", hoverStrength.toFixed(3));
     renderer.render(scene, camera);
     monitorPerformance(timestamp, progress);
   }
@@ -445,6 +693,15 @@
         uniforms: {
           uProgress: { value: 0 },
           uDissolve: { value: 0 },
+          uPointer: { value: new THREE.Vector2(0, 0) },
+          uPointerTrail: { value: new THREE.Vector2(0, 0) },
+          uPointerTail: { value: new THREE.Vector2(0, 0) },
+          uWindDirection: { value: windDirection.clone() },
+          uInteractionAspect: { value: 1 },
+          uInteractionMode: { value: pointerInteractionMode === "water" ? 1 : 0 },
+          uRevealHoverStrength: { value: 0 },
+          uHoverTime: { value: 0 },
+          uHoverStrength: { value: 0 },
           uTime: { value: 0 },
           uPixelRatio: { value: currentPixelRatio },
         },
@@ -466,10 +723,11 @@
       container.dataset.particleQuality = mobileQuery.matches ? "mobile" : compactQuery.matches ? "compact" : "desktop";
       container.dataset.particleState = "ready";
       container.dataset.particleFlowCount = totalFlowParticles.toString();
+      container.dataset.hoverFlow = pointerInteractionMode;
       showDebugStatus(`${totalParticles} points · ${totalFlowParticles} flowing · ${container.dataset.particleQuality}`);
       container.classList.remove("is-particle-fallback");
       container.classList.add("is-particle-ready");
-      updateScrollProgress();
+      syncRevealMode();
       window.requestAnimationFrame(() => container.classList.remove("is-particle-pending"));
 
       canvas.addEventListener("webglcontextlost", (event) => {
@@ -492,6 +750,11 @@
 
       document.addEventListener("visibilitychange", updateLoopState);
       window.addEventListener("scroll", requestScrollUpdate, { passive: true });
+      revealTrigger.addEventListener("click", revealPortrait);
+      revealTrigger.addEventListener("pointermove", updatePointerReveal, { passive: true });
+      revealTrigger.addEventListener("pointerleave", leavePointerReveal);
+      phoneQuery.addEventListener("change", syncRevealMode);
+      pointerRevealQuery.addEventListener("change", syncPointerRevealMode);
     } catch (error) {
       console.warn("Hero particles fell back to the static portrait:", error);
       disposeToStatic("initialization-failed", error instanceof Error ? error.message : String(error));

@@ -1286,7 +1286,7 @@ function setUpGalaxyScene() {
     hoveredPoint = point;
     galaxyHint?.classList.toggle("is-near", Boolean(point));
     if (galaxyHint) {
-      galaxyHint.textContent = point ? "点击这束荧火，查看微光" : "靠近一束微光，轻触展开";
+      galaxyHint.textContent = point ? "点击查看这颗荧火" : "靠近一束微光，轻触展开";
     }
     requestDraw();
   }
@@ -1371,7 +1371,7 @@ function setUpGalaxyScene() {
     fireflyDialogKicker.hidden = true;
     fireflyDialogKicker.textContent = "";
     fireflyDialogTitle.hidden = false;
-    fireflyDialogTitle.textContent = "写下你的微光";
+    fireflyDialogTitle.textContent = "投递荧火，点亮星河";
     fireflyDialog.setAttribute("aria-labelledby", "firefly-dialog-title");
     fireflyDialog.removeAttribute("aria-label");
     fireflyDialogContent.replaceChildren();

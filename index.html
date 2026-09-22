@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>廿载如初，王者归来 · 檀健次</title>
-  <link rel="stylesheet" href="./assets/css/style.css?v=20260921-7">
+  <link rel="stylesheet" href="./assets/css/style.css?v=20260922-3">
 </head>
 <body>
   <div id="cur" aria-hidden="true"></div>
@@ -67,6 +67,9 @@
 
     <div id="timeline-viewport" class="timeline-viewport" tabindex="0" aria-label="檀健次2006至2026演艺时间线，可横向滚动">
       <div id="timeline-track" class="timeline-track">
+        <div class="timeline-cloud-layer timeline-cloud-left" data-parallax="0.12" aria-hidden="true"></div>
+        <div class="timeline-cloud-layer timeline-cloud-center" data-parallax="0.06" aria-hidden="true"></div>
+        <div class="timeline-cloud-layer timeline-cloud-right" data-parallax="-0.02" aria-hidden="true"></div>
         <div class="mountain-layer" aria-hidden="true"></div>
         <div id="fireflies" class="fireflies" aria-hidden="true"></div>
         <div id="year-nodes" class="year-nodes"></div>
@@ -197,7 +200,9 @@
 
       <div class="galaxy-ending-layer" aria-hidden="true">
         <figure class="companion-art">
-          <img src="./assets/images/companion-hedgehog.png?v=20260921-1" alt="刺猬与炭火相依的金色线稿" loading="lazy" decoding="async">
+          <img id="companion-image" src="./assets/images/companion-hedgehog.png?v=20260922-2" alt="相依陪伴的金色剪影" loading="lazy" decoding="async">
+          <img class="companion-glow" src="./assets/images/companion-glow.png?v=20260922-2" alt="" loading="lazy" decoding="async" aria-hidden="true">
+          <canvas id="companion-sparks" class="companion-sparks" aria-hidden="true"></canvas>
         </figure>
         <p class="galaxy-warm-line">微光会记得，每一次真心的陪伴。</p>
         <nav class="galaxy-ending-actions" aria-label="第四幕结束导航">
@@ -257,6 +262,8 @@
   <script src="./assets/vendor/three.min.js?v=0.159.0"></script>
   <script src="./assets/data/hero-particle-data.js?v=20260921-3"></script>
   <script src="./assets/js/hero-particles.js?v=20260921-8"></script>
-  <script src="./assets/js/main.js?v=20260921-9"></script>
+  <script src="./assets/js/main.js?v=20260922-2"></script>
+  <script src="./assets/data/companion-spark-data.js?v=20260922-2"></script>
+  <script src="./assets/js/companion-sparks.js?v=20260922-3"></script>
 </body>
 </html>

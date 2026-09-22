@@ -373,6 +373,23 @@ function setUpTimelineNavigation() {
   let startX = 0;
   let startScroll = 0;
   let resizeFrame = 0;
+  let parallaxFrame = 0;
+  const cloudLayers = timelineTrack.querySelectorAll(".timeline-cloud-layer");
+
+  function updateTimelineParallax() {
+    parallaxFrame = 0;
+    cloudLayers.forEach((cloudLayer) => {
+      const parallax = Number(cloudLayer.dataset.parallax) || 0;
+      cloudLayer.style.setProperty("--cloud-parallax-x", `${timelineViewport.scrollLeft * parallax}px`);
+    });
+  }
+
+  function updateTimelineScrollEffects() {
+    updateProgress();
+    if (!parallaxFrame) {
+      parallaxFrame = window.requestAnimationFrame(updateTimelineParallax);
+    }
+  }
 
   function syncTimelineDimensions() {
     window.cancelAnimationFrame(resizeFrame);
@@ -386,12 +403,12 @@ function setUpTimelineNavigation() {
       window.requestAnimationFrame(() => {
         const newMaxScroll = timelineViewport.scrollWidth - timelineViewport.clientWidth;
         timelineViewport.scrollLeft = oldRatio * Math.max(0, newMaxScroll);
-        updateProgress();
+        updateTimelineScrollEffects();
       });
     });
   }
 
-  timelineViewport.addEventListener("scroll", updateProgress, { passive: true });
+  timelineViewport.addEventListener("scroll", updateTimelineScrollEffects, { passive: true });
 
   timelineViewport.addEventListener("wheel", (event) => {
     if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
@@ -1048,6 +1065,7 @@ function setUpGalaxyScene() {
   let isEnding = false;
   let animationFrame = 0;
   let previousFrameTime = 0;
+  let lastPaintTime = 0;
   let toastTimer = 0;
   let activeRecordIndex = -1;
   let joystickActive = false;
@@ -1133,7 +1151,7 @@ function setUpGalaxyScene() {
     const rect = galaxyStage.getBoundingClientRect();
     width = Math.max(1, Math.round(rect.width));
     height = Math.max(1, Math.round(rect.height));
-    pixelRatio = Math.min(1.5, window.devicePixelRatio || 1);
+    pixelRatio = Math.min(finePointer ? 1.35 : 1, window.devicePixelRatio || 1);
     galaxyCanvas.width = Math.round(width * pixelRatio);
     galaxyCanvas.height = Math.round(height * pixelRatio);
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
@@ -1170,8 +1188,15 @@ function setUpGalaxyScene() {
 
   function drawGalaxy(time = 0) {
     animationFrame = 0;
+    const frameInterval = 1000 / (finePointer ? 45 : 30);
+    if (!isDragging && !joystickActive && lastPaintTime && time - lastPaintTime < frameInterval) {
+      animationFrame = window.requestAnimationFrame(drawGalaxy);
+      return;
+    }
+
     const frameTime = previousFrameTime ? Math.min(50, Math.max(0, time - previousFrameTime)) : 16.67;
     previousFrameTime = time;
+    lastPaintTime = time;
     if (!reducedMotion && !isDragging && !joystickActive && !isEnding) {
       targetYaw -= frameTime * 0.000045;
     }
@@ -1560,6 +1585,7 @@ function setUpGalaxyScene() {
       window.cancelAnimationFrame(animationFrame);
       animationFrame = 0;
       previousFrameTime = 0;
+      lastPaintTime = 0;
     }
   }, { threshold: 0.03 });
   galaxyObserver.observe(galaxyScene);

@@ -195,17 +195,34 @@ body::after {
 }
 
 #char-half[data-hover-flow="water"].is-pointer-active:not(.is-revealing):not(.is-revealed) #char {
+  opacity: 1;
   -webkit-mask-image: radial-gradient(
     circle at var(--hero-hover-x, 50%) var(--hero-hover-y, 50%),
-    #000 0 5%,
-    rgba(0, 0, 0, 0.9) 8%,
+    rgba(0, 0, 0, var(--hero-hover-strength, 0)) 0 5%,
+    rgba(0, 0, 0, calc(var(--hero-hover-strength, 0) * 0.9)) 8%,
     transparent 15%
   );
   mask-image: radial-gradient(
     circle at var(--hero-hover-x, 50%) var(--hero-hover-y, 50%),
-    #000 0 5%,
-    rgba(0, 0, 0, 0.9) 8%,
+    rgba(0, 0, 0, var(--hero-hover-strength, 0)) 0 5%,
+    rgba(0, 0, 0, calc(var(--hero-hover-strength, 0) * 0.9)) 8%,
     transparent 15%
+  );
+}
+
+#char-half[data-hover-flow="water"].is-pointer-active.is-revealing #char {
+  opacity: 1;
+  -webkit-mask-image: radial-gradient(
+    circle at var(--hero-hover-x, 50%) var(--hero-hover-y, 50%),
+    rgba(0, 0, 0, var(--hero-reveal-mask-strength, 0)) 0 5%,
+    rgba(0, 0, 0, calc(var(--hero-reveal-mask-strength, 0) * 0.9)) 8%,
+    rgba(0, 0, 0, var(--hero-image-reveal, 0)) 15%
+  );
+  mask-image: radial-gradient(
+    circle at var(--hero-hover-x, 50%) var(--hero-hover-y, 50%),
+    rgba(0, 0, 0, var(--hero-reveal-mask-strength, 0)) 0 5%,
+    rgba(0, 0, 0, calc(var(--hero-reveal-mask-strength, 0) * 0.9)) 8%,
+    rgba(0, 0, 0, var(--hero-image-reveal, 0)) 15%
   );
 }
 
@@ -2588,12 +2605,12 @@ body::after {
   .lotus-footer p { display: none; }
   .lotus-hotspot::before { width: 38px; height: 38px; }
   .lotus-scroll {
-    width: min(115vw, 113svh);
-    right: 3vw;
+    width: min(98vw, 440px);
+    right: 1vw;
     height: auto;
     aspect-ratio: 2216 / 1800;
   }
-  .lotus-scroll-shell { padding: 7% 8% 7% 17%; }
+  .lotus-scroll-shell { padding: 5.5% 10.5% 5.5% 4.5%; }
   .lotus-scroll-header {
     min-height: 50px;
     padding-bottom: 8px;
@@ -2601,13 +2618,13 @@ body::after {
   .lotus-scroll-header p { font-size: 8px; }
   .lotus-scroll-header h3 { font-size: clamp(30px, 8.5vw, 40px); }
   .lotus-scroll-close { padding: 7px 9px 7px 12px; }
-  .lotus-scroll-content { padding: 12px 6px 9px; }
+  .lotus-scroll-content { padding: 10px 6px 7px; }
   .lotus-scroll-footer { font-size: 8px; letter-spacing: 0.18em; }
   .lotus-archive { padding-bottom: 18px; }
-  .lotus-archive-feature { height: clamp(112px, 31vw, 150px); }
+  .lotus-archive-feature { height: clamp(96px, 29vw, 140px); }
   .lotus-archive-feature figcaption { left: 14px; right: 14px; bottom: 11px; }
   .lotus-archive-latest { gap: 10px; margin-top: 10px; }
-  .lotus-archive-latest section { min-height: 112px; padding: 14px; }
+  .lotus-archive-latest section { min-height: 104px; padding: 12px 14px; }
   .lotus-archive-latest,
   .lotus-archive-body { grid-template-columns: 1fr; }
   .lotus-archive-body { gap: 16px; margin-top: 18px; }

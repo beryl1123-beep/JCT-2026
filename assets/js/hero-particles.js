@@ -127,14 +127,14 @@
       transformed.x += breezeX * 0.00145 * settled * aInkAlpha;
       transformed.y += breezeY * 0.00105 * settled * aInkAlpha;
 
-      float flowCycle = fract(uTime * (0.0001 + aPhase * 0.00007) + aPhase);
-      float flowActive = aFlowStrength * settled * (1.0 - uDissolve);
+      float dissolveStart = aPhase * 0.62;
+      float dissolve = smoothstep(dissolveStart, min(1.0, dissolveStart + 0.34), uDissolve);
+      float flowCycle = fract(uHoverTime * (0.0001 + aPhase * 0.00007) + aPhase);
+      float flowActive = aFlowStrength * settled * (1.0 - dissolve);
       float flowDrop = flowCycle * flowCycle * (0.065 + aPhase * 0.14);
       transformed.x += sin(flowCycle * 6.28318 + aPhase * 12.0) * 0.008 * flowActive;
       transformed.y -= flowDrop * flowActive;
 
-      float dissolveStart = aPhase * 0.62;
-      float dissolve = smoothstep(dissolveStart, min(1.0, dissolveStart + 0.34), uDissolve);
       transformed.x += sin(aPhase * 41.7) * dissolve * (0.018 + aPhase * 0.085);
       transformed.y -= dissolve * (0.075 + fract(aPhase * 11.73) * 0.31);
 
@@ -375,6 +375,7 @@
     const safeProgress = Math.min(1, Math.max(0, progress));
     material.uniforms.uDissolve.value = safeProgress;
     container.style.setProperty("--hero-image-reveal", safeProgress.toFixed(4));
+    container.style.setProperty("--hero-reveal-mask-strength", Math.max(safeProgress, revealHoverStrength).toFixed(4));
     container.dataset.particleDissolve = safeProgress.toFixed(3);
   }
 
@@ -409,6 +410,7 @@
     hoverStrength = 0;
     revealHoverStrength = 0;
     container.style.setProperty("--hero-hover-strength", "0");
+    container.style.setProperty("--hero-reveal-mask-strength", "0");
     if (material) {
       material.uniforms.uHoverStrength.value = 0;
       material.uniforms.uRevealHoverStrength.value = 0;
@@ -489,7 +491,7 @@
     }
 
     revealProgress = 1;
-    container.classList.remove("is-revealing");
+    container.classList.remove("is-revealing", "is-pointer-active");
     container.classList.add("is-revealed");
     revealTrigger.disabled = true;
   }
@@ -502,10 +504,10 @@
     revealStartTime = 0;
     revealHoverStrength = hoverStrength;
     material.uniforms.uRevealHoverStrength.value = revealHoverStrength;
+    container.style.setProperty("--hero-reveal-mask-strength", revealHoverStrength.toFixed(4));
     container.dataset.particleRevealHover = revealHoverStrength.toFixed(3);
     targetHoverStrength = 0;
     lastPointerSample = null;
-    container.classList.remove("is-pointer-active");
     container.classList.add("is-revealing");
     revealFrame = window.requestAnimationFrame(updateClickReveal);
   }
@@ -618,7 +620,7 @@
     pointerTail.lerp(pointerTrail, tailEase);
     windDirection.lerp(targetWindDirection, windEase).normalize();
 
-    if (targetHoverStrength === 0 && hoverStrength < 0.012) {
+    if (targetHoverStrength === 0 && hoverStrength < 0.012 && !container.classList.contains("is-revealing")) {
       hoverStrength = 0;
       container.classList.remove("is-pointer-active");
     }

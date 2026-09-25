@@ -4,11 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>廿载如初，王者归来 · 檀健次</title>
-  <link rel="stylesheet" href="./assets/css/style.css?v=20260924-3">
+  <link rel="stylesheet" href="./assets/css/style.css?v=20260926-1">
 </head>
 <body>
   <div id="cur" aria-hidden="true"></div>
   <div id="cur-t" aria-hidden="true"></div>
+
+  <div class="music-control">
+    <audio
+      id="background-music"
+      src="./assets/audio/chong-cut-15.mp3"
+      preload="metadata"
+      loop
+    ></audio>
+    <button
+      id="music-toggle"
+      class="music-toggle"
+      type="button"
+      aria-label="播放背景音乐"
+      aria-pressed="false"
+    >
+      <span class="music-disc" aria-hidden="true">
+        <img src="./assets/images/music-vinyl-cover.jpg" alt="">
+        <i></i>
+      </span>
+      <span class="music-shush" aria-hidden="true">🤫</span>
+      <span id="music-status" class="music-status">播放音乐</span>
+    </button>
+  </div>
 
   <main>
   <section id="s1" class="scene scene-hero" aria-label="廿载如初，王者归来">
@@ -263,7 +286,7 @@
   <script src="./assets/vendor/three.min.js?v=0.159.0"></script>
   <script src="./assets/data/hero-particle-data.js?v=20260921-3"></script>
   <script src="./assets/js/hero-particles.js?v=20260924-1"></script>
-  <script src="./assets/js/main.js?v=20260922-3"></script>
+  <script src="./assets/js/main.js?v=20260926-1"></script>
   <script src="./assets/data/companion-spark-data.js?v=20260922-2"></script>
   <script src="./assets/js/companion-sparks.js?v=20260922-3"></script>
 </body>

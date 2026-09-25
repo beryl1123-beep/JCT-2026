@@ -1,57 +1,218 @@
 [
   {
-    "id": "light-01",
+    "id": "light-001",
     "type": "text",
-    "title": "给认真走路的人",
-    "content": "愿你走过的每一步都算数，也愿每一次回头，都能看见沿途亮起的微光。",
-    "signature": "一颗路过的萤火",
+    "title": "天没塌下来，就是小事",
+    "content": "当你感到心情不好的时候，请你看向天空，如果天还没有塌下来一点，就是小事。",
+    "signature": "JC-T",
     "reviewStatus": "approved",
-    "createdAt": "2026-09-20T01:00:00+08:00"
+    "createdAt": "2026-09-20T22:54:21Z"
   },
   {
-    "id": "light-02",
+    "id": "light-002",
     "type": "text",
-    "title": "廿载之后",
-    "content": "长路并不总有掌声，但热爱会把沉默的日子，一点一点照亮。生日快乐，愿新的故事仍有清风，也有星河。",
-    "signature": "与你一同看星河的人",
+    "title": "跳脱舒适圈",
+    "content": "所谓跳脱舒适圈，并不是让你去一个难受圈，而是在能受的范围之内做更多的尝试。",
+    "signature": "JC-T",
     "reviewStatus": "approved",
-    "createdAt": "2026-09-20T02:00:00+08:00"
+    "createdAt": "2026-09-21T16:01:47Z"
   },
   {
-    "id": "light-03",
-    "type": "website",
-    "title": "一封来自远方的网页信",
-    "content": "愿这束微光带你去往更辽阔的地方，也愿每一次打开，都能遇见一段新的风景。",
-    "signature": "来自远方的同行者",
-    "url": "https://www.example.com/",
+    "id": "light-003",
+    "type": "text",
+    "title": "越来越好",
+    "content": "我希望新的一年我们都越来越好。",
+    "signature": "JC-T",
     "reviewStatus": "approved",
-    "createdAt": "2026-09-20T03:00:00+08:00"
+    "createdAt": "2026-09-25T22:11:30Z"
   },
   {
-    "id": "light-04",
+    "id": "light-004",
     "type": "text",
-    "title": "在银河的另一边",
-    "content": "那些没有被大声说出的祝福，也会在黑夜里找到自己的位置。",
-    "signature": "无名的同行者",
+    "title": "仰望星空",
+    "content": "我们要脚踏实地的生活，但是同时也要记得仰望星空。",
+    "signature": "JC-T",
     "reviewStatus": "approved",
-    "createdAt": "2026-09-20T04:00:00+08:00"
+    "createdAt": "2026-09-25T22:13:01Z"
   },
   {
-    "id": "light-05",
+    "id": "light-005",
     "type": "text",
-    "title": "仍然出发",
-    "content": "愿你的好奇不被岁月磨平，愿你永远有重新出发的勇气。",
-    "signature": "微光 05",
+    "title": "不要害怕失败",
+    "content": "不要害怕失败，只要努力尝试过，就一定会成功的。",
+    "signature": "JC-T",
     "reviewStatus": "approved",
-    "createdAt": "2026-09-20T05:00:00+08:00"
+    "createdAt": "2026-09-25T22:13:58Z"
   },
   {
-    "id": "light-06",
+    "id": "light-006",
     "type": "text",
-    "title": "生日快乐",
-    "content": "愿下一程比想象更辽阔，比昨日更自由。",
-    "signature": "微光 06",
+    "title": "努力的意义",
+    "content": "每一个努力的瞬间，都是我们宝贵的财富。在这个过程中，我们不仅会发现自己的潜力，还会重新找回那份对生活的热爱。",
+    "signature": "JC-T",
     "reviewStatus": "approved",
-    "createdAt": "2026-09-20T06:00:00+08:00"
+    "createdAt": "2026-09-25T22:15:00Z"
+  },
+  {
+    "id": "light-007",
+    "type": "text",
+    "title": "拥有越多，帮助越大",
+    "content": "你拥有得越多，不管在任何领域给予你的帮助也会越大。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:16:06Z"
+  },
+  {
+    "id": "light-008",
+    "type": "text",
+    "title": "正向的双向奔赴",
+    "content": "不要在意外界的声音，做自己想做的事，希望我们是争抢的双向奔赴。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:19:06Z"
+  },
+  {
+    "id": "light-009",
+    "type": "text",
+    "title": "坦诚相见",
+    "content": "不管这个社会有多复杂的关系，一定要保持真挚的心，真诚地对待任何人和事，只要你对别人是真诚的，别人一定会接纳。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:20:23Z"
+  },
+  {
+    "id": "light-010",
+    "type": "text",
+    "title": "渺小却炙热",
+    "content": "人生只要有梦想或只要有希望，即便我们再渺小，但其实还是炙热的。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:21:08Z"
+  },
+  {
+    "id": "light-011",
+    "type": "text",
+    "title": "活出自我",
+    "content": "希望显示中的大家都能找到内心的平静，在放肆里感受内心的热爱，希望我们每一个人都能活出真正的自我吧。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:21:49Z"
+  },
+  {
+    "id": "light-012",
+    "type": "text",
+    "title": "为自己的梦想努力奋斗",
+    "content": "无论遇到什么事情，无论那你觉得自己行不行，不都行，要相信自己，不努力你永远不知道自己有多棒！要为自己的梦想去努力奋斗。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:22:39Z"
+  },
+  {
+    "id": "light-013",
+    "type": "text",
+    "title": "我不会让你们失望的",
+    "content": "我不会让你们失望的，我带给你们的作品，不管是音乐上的也好，影视上的也好，我会重重把关的，我会监督好我自己。所以，你们放心，不会辜负任何一个人，辜负支持我的人，更不会辜负我自己。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:23:23Z"
+  },
+  {
+    "id": "light-014",
+    "type": "text",
+    "title": "面对该面对的",
+    "content": "人这辈子，你该去经历的事情还是得面对，我觉得只要是通过自己的努力也好，悟性也好，去改变一些心态和运气，这就足够了。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:26:42Z"
+  },
+  {
+    "id": "light-015",
+    "type": "text",
+    "title": "成就感是人的引擎",
+    "content": "有人说，成就感是人的引擎。其实正是一路走来获得的大大小小的成就感，给了我们向前的动力。或许是在做一件事时，遇到了很多坎坷，也可能一度想过放弃，但一路披荆斩棘，获得了想要的结果，成为了更优秀的自己；或许是最开始做一件事情时，没有多少人真正看好你，你顶住了巨大的压力，出色地完成了任务。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:27:46Z"
+  },
+  {
+    "id": "light-016",
+    "type": "text",
+    "title": "再加点油",
+    "content": "请再悄悄加点油，无论如何都想听你说，我终于成为不负众望的人了。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:30:01Z"
+  },
+  {
+    "id": "light-017",
+    "type": "text",
+    "title": "陪伴",
+    "content": "流浪的人学会了孤独，但是这一路上才发现满是陪伴。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:30:40Z"
+  },
+  {
+    "id": "light-018",
+    "type": "text",
+    "title": "努力的人会发光",
+    "content": "努力的人，不管在哪个时代，都是会有光彩的。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:31:05Z"
+  },
+  {
+    "id": "light-019",
+    "type": "text",
+    "title": "慢慢来",
+    "content": "慢慢来我不知道会不会比较快，但我觉得慢慢来是会有惊喜。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:31:56Z"
+  },
+  {
+    "id": "light-020",
+    "type": "text",
+    "title": "坚强的蝴蝶",
+    "content": "有一只蝴蝶，它断了半只翅膀，但是它依然能飞，为什么？因为它坚强。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:32:18Z"
+  },
+  {
+    "id": "light-021",
+    "type": "text",
+    "title": "在任何时候相见",
+    "content": "任何时候相见都不晚，任何时候相见都是最好的时候。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:36:38Z"
+  },
+  {
+    "id": "light-022",
+    "type": "text",
+    "title": "微微",
+    "content": "我们是彼此的光，相互支撑、彼此成长。",
+    "signature": "JC-T",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:39:27Z"
+  },
+  {
+    "id": "light-023",
+    "type": "text",
+    "title": "生日快乐&出道20年快乐",
+    "content": "祝你未来的每一天，都能拥有更美好的未来。",
+    "signature": "林Hoohoo",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-25T22:43:43Z"
+  },
+  {
+    "id": "light-024",
+    "type": "text",
+    "title": "一起走花路吧",
+    "content": "檀老师，生日快乐！以及出道20年快乐！祝三专大爆！！！",
+    "signature": "",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-26T05:12:38Z"
   }
 ]

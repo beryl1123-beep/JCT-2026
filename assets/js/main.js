@@ -26,8 +26,64 @@ const lotusScroll = document.getElementById("lotus-scroll");
 const lotusScrollTitle = document.getElementById("lotus-scroll-title");
 const lotusScrollContent = document.getElementById("lotus-scroll-content");
 const lotusScrollClose = document.getElementById("lotus-scroll-close");
+const backgroundMusic = document.getElementById("background-music");
+const musicToggle = document.getElementById("music-toggle");
+const musicStatus = document.getElementById("music-status");
 
 const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+function setUpBackgroundMusic() {
+  if (!backgroundMusic || !musicToggle || !musicStatus) {
+    return;
+  }
+
+  backgroundMusic.loop = true;
+  backgroundMusic.volume = 0.72;
+
+  function updateMusicState(message = "") {
+    const isPlaying = !backgroundMusic.paused && !backgroundMusic.ended;
+    const label = message || (isPlaying ? "暂停音乐" : "播放音乐");
+    musicToggle.classList.toggle("is-playing", isPlaying);
+    musicToggle.classList.remove("is-loading");
+    musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    musicToggle.setAttribute("aria-label", label);
+    musicToggle.title = label;
+    musicStatus.textContent = label;
+  }
+
+  async function playMusic() {
+    musicToggle.classList.add("is-loading");
+    musicStatus.textContent = "正在加载";
+    try {
+      await backgroundMusic.play();
+      updateMusicState();
+    } catch (error) {
+      updateMusicState("点击播放音乐");
+    }
+  }
+
+  musicToggle.addEventListener("click", () => {
+    if (backgroundMusic.paused) {
+      playMusic();
+    } else {
+      backgroundMusic.pause();
+    }
+  });
+
+  backgroundMusic.addEventListener("play", () => updateMusicState());
+  backgroundMusic.addEventListener("pause", () => updateMusicState());
+  backgroundMusic.addEventListener("playing", () => updateMusicState());
+  backgroundMusic.addEventListener("waiting", () => {
+    if (!backgroundMusic.paused) {
+      musicToggle.classList.add("is-loading");
+      musicStatus.textContent = "正在加载";
+    }
+  });
+  backgroundMusic.addEventListener("error", () => updateMusicState("音乐加载失败"));
+
+  updateMusicState();
+  playMusic();
+}
 
 const timelineFiles = {
   2006: "01-2006.md",
@@ -1038,11 +1094,7 @@ function setUpGalaxyScene() {
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fireflyFormUrl = "https://my.feishu.cn/share/base/form/shrcnpzvpRE3WRzSyEWx1mextGg";
-  const fallbackRecords = [
-    { id: "fallback-01", type: "text", title: "给认真走路的人", content: "愿你走过的每一步都算数，也愿每一次回头，都能看见沿途亮起的微光。", signature: "一颗路过的萤火", reviewStatus: "approved", createdAt: "2026-09-20T01:00:00+08:00" },
-    { id: "fallback-02", type: "text", title: "廿载之后", content: "长路并不总有掌声，但热爱会把沉默的日子，一点一点照亮。", signature: "与你一同看星河的人", reviewStatus: "approved", createdAt: "2026-09-20T02:00:00+08:00" },
-    { id: "fallback-03", type: "text", title: "仍然出发", content: "愿你的好奇不被岁月磨平，愿你永远有重新出发的勇气。", signature: "微光", reviewStatus: "approved", createdAt: "2026-09-20T03:00:00+08:00" },
-  ];
+  const fallbackRecords = [];
   let records = [];
   let points = [];
   let projectedPoints = [];
@@ -1093,7 +1145,7 @@ function setUpGalaxyScene() {
 
   async function loadRecords() {
     try {
-      const response = await fetch("./content/scene4/fireflies.json?v=20260920-1");
+      const response = await fetch("./content/scene4/fireflies.json?v=20260926-1");
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
@@ -1611,6 +1663,7 @@ function setUpGalaxyScene() {
   loadRecords();
 }
 
+setUpBackgroundMusic();
 setUpCursor();
 createYearNodes();
 createFireflies();

@@ -1364,10 +1364,10 @@ body::after {
 
 .story-close {
   border: 1px solid rgba(89, 61, 28, 0.35);
-  padding: 0.8cqw 1.07cqw 0.8cqw 1.43cqw;
+  padding: 9px 12px 9px 16px;
   background: transparent;
   font-family: "HuiWen", "Songti SC", serif;
-  font-size: 1.07cqw;
+  font-size: 13px;
   letter-spacing: 0.28em;
   color: #57401f;
   cursor: none;
@@ -1604,6 +1604,19 @@ body::after {
   }
 }
 
+/* Near-square and small viewports keep the desktop card type scale. */
+@media (max-aspect-ratio: 6 / 5), (max-width: 600px) {
+  .story-date,
+  .story-card.no-image .story-date {
+    font-size: 18px;
+  }
+
+  .story-description,
+  .story-card.no-image .story-description {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 760px) {
   .scene-timeline { min-height: 560px; }
   .timeline-head { top: 28px; left: 24px; padding-left: 17px; }
@@ -1613,6 +1626,11 @@ body::after {
   .timeline-kicker { font-size: 8px; letter-spacing: 0.3em; }
   .timeline-help { top: auto; bottom: 56px; right: 22px; }
   .timeline-progress { width: 54vw; bottom: 25px; }
+  .story-close { padding: 7px 9px 7px 12px; }
+}
+
+@media (min-width: 641px) and (max-width: 760px) and (min-aspect-ratio: 9 / 10) and (max-aspect-ratio: 6 / 5) {
+  .story-close { padding: 9px 12px 9px 16px; }
 }
 
 /* Phone portrait only: lengthen the scroll and show one readable card. */
@@ -1620,6 +1638,10 @@ body::after {
   .story-dialog {
     height: min(78svh, 112vw);
     aspect-ratio: auto;
+  }
+
+  .story-shell {
+    background: url("../images/scene2-timeline-scroll-mobile.png?v=20260928-1") center / 100% 100% no-repeat;
   }
 
   .story-header {
@@ -1635,27 +1657,11 @@ body::after {
     font-size: clamp(32px, 8.5cqw, 42px);
   }
 
-  .story-close {
-    padding: 1.4cqw 1.8cqw 1.4cqw 2.2cqw;
-    font-size: clamp(9px, 2.2cqw, 11px);
-  }
-
   .story-content {
     grid-auto-columns: 85cqw;
     gap: 1.6cqw;
     padding-top: 2cqw;
     padding-bottom: 1.5cqw;
-  }
-
-  .story-date,
-  .story-card.no-image .story-date {
-    font-size: clamp(11px, 2.8cqw, 14px);
-  }
-
-  .story-description,
-  .story-card.no-image .story-description {
-    font-size: clamp(9px, 2.25cqw, 11px);
-    line-height: 1.72;
   }
 
   .story-link {
@@ -2458,6 +2464,7 @@ body::after {
   padding: 9px 12px 9px 16px;
   background: transparent;
   font-family: "HuiWen", "Songti SC", serif;
+  font-size: 13px;
   letter-spacing: 0.28em;
   color: #57401f;
   cursor: none;

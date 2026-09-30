@@ -295,5 +295,41 @@
     "signature": "酸甜.",
     "reviewStatus": "approved",
     "createdAt": "2026-09-30T08:49:57Z"
+  },
+  {
+    "id": "light-034",
+    "type": "text",
+    "title": "畅游小火苗",
+    "content": "哥哥天天开心快乐，身体健康，好好吃饭！我也努力学习，争取下次去见你呀！",
+    "signature": "畅畅",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-30T10:15:12Z"
+  },
+  {
+    "id": "light-035",
+    "type": "text",
+    "title": "生日快乐！",
+    "content": "生日快乐！三专大爆！",
+    "signature": "",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-30T10:33:19Z"
+  },
+  {
+    "id": "light-036",
+    "type": "text",
+    "title": "多多番茄",
+    "content": "多多，一年又一年，我们都会越来越好，愿幸福与我们常相伴",
+    "signature": "",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-30T10:56:38Z"
+  },
+  {
+    "id": "light-037",
+    "type": "text",
+    "title": "Love u more than 3000",
+    "content": "健次 我想成为像你一样的人 希望你一直做自己 健康平安 开心快乐 你永远是我们的光",
+    "signature": "一直爱你支持你的小炭火",
+    "reviewStatus": "approved",
+    "createdAt": "2026-09-30T16:38:49Z"
   }
 ]
